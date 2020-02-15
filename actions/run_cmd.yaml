@@ -1,0 +1,19 @@
+name: run_cmd
+pack: meetup_jp9
+runner_type: orquesta
+description: This runs specified command on the specified host and report the result in the Slack
+enabled: true
+entry_point: workflows/run_cmd.yaml
+parameters:
+  cmd:
+    type: string
+    required: True
+    description: Shell command that want to run on the specified host
+  host:
+    type: string
+    required: True
+    description: Hostname or IP address that runs command which is specified in cmd parameter
+  slack_channel:
+    type: string
+    description: A slack channel name in which output is written
+    default: general

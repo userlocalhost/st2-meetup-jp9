@@ -1,0 +1,38 @@
+version: 1.0
+
+description: This runs specified command on the specified host and report the result in the Slack
+
+input:
+  - cmd
+  - host
+  - slack_channel
+
+vars:
+  - xs: [1,2,3]
+
+tasks:
+  taskA:
+    action: core.remote
+    input:
+      cmd: <% ctx(cmd) %>
+      hosts: <% ctx(host) %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - taskA_result: <% result()[ctx(host)].stdout %>
+        do: taskZ
+      - when: <% failed() %>
+        do: error_handler
+
+  taskZ:
+    action: slack.post_message
+    input:
+      message: <% ctx(taskA_result) %>
+    next:
+      - when: <% failed() %>
+        do: error_handler
+
+  error_handler:
+    action: core.echo
+    input:
+      message: taskA is failed, you should make post-processing in here
