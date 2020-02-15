@@ -1,6 +1,7 @@
 version: 1.0
 
-description: This runs specified command on the specified host and report the result in the Slack
+description: |
+  This runs specified command on the specified host and report the result in the Slack
 
 input:
   - cmd
@@ -11,7 +12,7 @@ vars:
   - xs: [1,2,3]
 
 tasks:
-  taskA:
+  run_command:
     action: core.remote
     input:
       cmd: <% ctx(cmd) %>
@@ -19,20 +20,23 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          - taskA_result: <% result()[ctx(host)].stdout %>
-        do: taskZ
+          - command_result: <% result()[ctx(host)].stdout %>
+        do: report_command_result
       - when: <% failed() %>
-        do: error_handler
+        do: report_error
 
-  taskZ:
+  report_command_result:
     action: slack.post_message
     input:
-      message: <% ctx(taskA_result) %>
+      message: |
+        * (command) "<% ctx(cmd) %>" on <% ctx(host) %>
+        * (output) <% ctx(command_result) %>
+
     next:
       - when: <% failed() %>
-        do: error_handler
+        do: fail
 
-  error_handler:
-    action: core.echo
+  report_error:
+    action: slack.post_message
     input:
-      message: taskA is failed, you should make post-processing in here
+      message: run_command task was failed to run command ("<% ctx(cmd) %>") on <% ctx(host) %>
