@@ -1,0 +1,16 @@
+action_token: null
+admin:
+  admin_token: ''
+  attempts: 1
+  auto_join_channels: null
+  organization: ''
+  set_active: true
+post_message_action:
+  channel: null
+  icon_emoji: ':panda_face:'
+  username: st2-test
+  webhook_url: 
+sensor:
+  allow_bot_messages: false
+  strip_formatting: false
+  token: ''

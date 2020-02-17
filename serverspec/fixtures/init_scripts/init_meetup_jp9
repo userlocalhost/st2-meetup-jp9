@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# deploy and install pack that contains testing workflow
+mkdir -p /opt/stackstorm/packs/meetup_jp9
+tar -xf /tmp/meetup_jp9 -C /opt/stackstorm/packs/meetup_jp9
+st2ctl reload --register-actions
