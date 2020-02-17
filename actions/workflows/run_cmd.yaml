@@ -21,13 +21,14 @@ tasks:
       - when: <% succeeded() %>
         publish:
           - command_result: <% result()[ctx(host)].stdout %>
-        do: report_command_result
+        do: report_result
       - when: <% failed() %>
         do: report_error
 
-  report_command_result:
+  report_result:
     action: slack.post_message
     input:
+      channel: <% ctx(slack_channel) %>
       message: |
         * (command) "<% ctx(cmd) %>" on <% ctx(host) %>
         * (output) <% ctx(command_result) %>
@@ -39,4 +40,5 @@ tasks:
   report_error:
     action: slack.post_message
     input:
+      channel: <% ctx(slack_channel) %>
       message: run_command task was failed to run command ("<% ctx(cmd) %>") on <% ctx(host) %>

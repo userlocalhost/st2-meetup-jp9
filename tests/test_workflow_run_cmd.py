@@ -61,18 +61,19 @@ class BasicWorkflowTest(test_base.WorkflowConductorTest):
 
         # This confirms whether expected action is specified
         self.assertEqual(len(next_tasks), 1)
-        self.assertEqual(next_tasks[0]['id'], 'report_command_result')
+        self.assertEqual(next_tasks[0]['id'], 'report_result')
 
         self.assertEqual(len(next_tasks[0]['actions']), 1)
         _action_info = next_tasks[0]['actions'][0]
         self.assertEqual(_action_info['action'], 'slack.post_message')
+        self.assertEqual(_action_info['input']['channel'], '#hoge')
         self.assertEqual(_action_info['input']['message'], (
             '* (command) "test_command" on test.example.com\n'
             '* (output) test_output\n'
         ))
 
-        # This confirms after finishing report_command_result there is no task to be run
-        self.forward_task_statuses(conductor, 'report_command_result', [statuses.RUNNING, statuses.SUCCEEDED])
+        # This confirms after finishing report_result there is no task to be run
+        self.forward_task_statuses(conductor, 'report_result', [statuses.RUNNING, statuses.SUCCEEDED])
         self.assertEqual(conductor.get_next_tasks(), [])
 
     def test_run_command_task_is_failed(self):
@@ -102,6 +103,7 @@ class BasicWorkflowTest(test_base.WorkflowConductorTest):
         self.assertEqual(len(next_tasks[0]['actions']), 1)
         _action_info = next_tasks[0]['actions'][0]
         self.assertEqual(_action_info['action'], 'slack.post_message')
+        self.assertEqual(_action_info['input']['channel'], '#hoge')
         self.assertEqual(_action_info['input']['message'], (
             'run_command task was failed to run command '
             '("test_command") on test.example.com'
