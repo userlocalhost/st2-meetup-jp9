@@ -1,15 +1,12 @@
 ---
-ref: meetup_jp9
-name: meetup_jp9
-description: Example pack that is handled in StackStorm Meetup JP #9
+ref: meetup_jp11
+name: meetup_jp11
+description: Example pack that is handled in StackStorm Meetup JP #11
 keywords:
   - example
-python_versions:
-  - "2"
-  - "3"
 dependencies:
   - core
   - slack
-version: 0.1.0
+version: 0.1.1
 author: Hiroyasu OHYAMA
 email: user.localhost2000@gmail.com
