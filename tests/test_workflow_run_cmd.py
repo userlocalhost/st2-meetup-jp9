@@ -49,11 +49,11 @@ class BasicWorkflowTest(test_base.WorkflowConductorTest):
         # finish run_command with successful
         self.forward_task_statuses(conductor, 'run_command', [statuses.RUNNING])
         self.forward_task_statuses(conductor, 'run_command', [statuses.SUCCEEDED], **{
-            'results': [{
+            'result': {
                 'test.example.com': {
                     'stdout': 'test_output'
                 }
-            }]
+            }
         })
 
         # get next running task after run_command is finished successfully
@@ -68,6 +68,7 @@ class BasicWorkflowTest(test_base.WorkflowConductorTest):
         self.assertEqual(_action_info['action'], 'slack.post_message')
         self.assertEqual(_action_info['input']['channel'], '#hoge')
         self.assertEqual(_action_info['input']['message'], (
+            '===[ SUCCEEDED ]===\n'
             '* (command) "test_command" on test.example.com\n'
             '* (output) test_output\n'
         ))
@@ -105,6 +106,7 @@ class BasicWorkflowTest(test_base.WorkflowConductorTest):
         self.assertEqual(_action_info['action'], 'slack.post_message')
         self.assertEqual(_action_info['input']['channel'], '#hoge')
         self.assertEqual(_action_info['input']['message'], (
+            '===[   ERROR   ]===\n'
             'run_command task was failed to run command '
-            '("test_command") on test.example.com'
+            '("test_command") on test.example.com\n'
         ))

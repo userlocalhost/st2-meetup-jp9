@@ -30,6 +30,7 @@ tasks:
     input:
       channel: <% ctx(slack_channel) %>
       message: |
+        ===[ SUCCEEDED ]===
         * (command) "<% ctx(cmd) %>" on <% ctx(host) %>
         * (output) <% ctx(command_result) %>
 
@@ -41,4 +42,6 @@ tasks:
     action: slack.post_message
     input:
       channel: <% ctx(slack_channel) %>
-      message: run_command task was failed to run command ("<% ctx(cmd) %>") on <% ctx(host) %>
+      message: |
+        ===[   ERROR   ]===
+        run_command task was failed to run command ("<% ctx(cmd) %>") on <% ctx(host) %>
