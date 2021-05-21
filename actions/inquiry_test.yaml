@@ -1,0 +1,19 @@
+---
+name: inquiry_test
+pack: meetup_jp
+description: A basic workflow that demonstrates inquiry.
+runner_type: orquesta
+entry_point: workflows/inquiry_test.yaml
+enabled: true
+parameters:
+  candidates:
+    type: array
+    default:
+      - Suzuki
+      - Sato
+      - Takahashi
+
+  slack_channel:
+    type: string
+    description: A slack channel name in which output is written
+    default: bot-test1

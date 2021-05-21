@@ -1,0 +1,49 @@
+---
+version: 1.0
+
+description: A basic workflow that demonstrates inquiry.
+
+input:
+  - candidates
+  - slack_channel
+
+tasks:
+  select_member:
+    action: core.echo
+    input:
+      message: <% ctx(candidates)[random(0, ctx(candidates).len()) - 1] %>
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - candidate: <% result().stdout %>
+        do: do_ask
+
+  do_ask:
+    action: core.ask
+    input:
+      schema:
+        type: object
+        properties:
+          approved:
+            type: string
+            description: "Would you like to leave this job to '<% ctx(candidate) %>'? (Yes/No)"
+            required: True
+    next:
+      - when: <% task(do_ask).result.response.approved.toLower() = 'yes' %>
+        do: finish
+      - when: <% task(do_ask).result.response.approved.toLower() != 'yes' %>
+        do: stop
+
+  finish:
+    action: slack.post_message
+    input:
+      channel: <% ctx(slack_channel) %>
+      message: Approved to leave it to <% ctx(candidate) %>
+
+  stop:
+    action: slack.post_message
+    input:
+      channel: <% ctx(slack_channel) %>
+      message: Declined to leave it to <% ctx(candidate) %>
+    next:
+      - do: fail
