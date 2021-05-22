@@ -1,12 +1,12 @@
 ---
-ref: meetup_jp11
-name: meetup_jp11
+ref: meetup_jp
+name: meetup_jp
 description: Example pack that is handled in StackStorm Meetup JP #11
 keywords:
   - example
 dependencies:
   - core
   - slack
-version: 0.1.1
+version: 0.1.2
 author: Hiroyasu OHYAMA
 email: user.localhost2000@gmail.com

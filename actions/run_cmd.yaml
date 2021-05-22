@@ -1,5 +1,5 @@
 name: run_cmd
-pack: meetup_jp11
+pack: meetup_jp
 runner_type: orquesta
 description: This runs specified command on the specified host and report the result in the Slack
 enabled: true

@@ -29,9 +29,9 @@ tasks:
             description: "Would you like to leave this job to '<% ctx(candidate) %>'? (Yes/No)"
             required: True
     next:
-      - when: <% task(do_ask).result.response.approved.toLower() = 'yes' %>
+      - when: <% task(do_ask).result.response.approved.toLower().matches("^ok|^yes|^y$") %>
         do: finish
-      - when: <% task(do_ask).result.response.approved.toLower() != 'yes' %>
+      - when: <% not task(do_ask).result.response.approved.toLower().matches("^ok|^yes|^y$") %>
         do: stop
 
   finish:
