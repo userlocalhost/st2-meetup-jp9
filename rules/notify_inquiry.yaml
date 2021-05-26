@@ -1,0 +1,14 @@
+---
+name: notify_inquiry
+pack: meetup_jp
+description: Notify relevant users of an Inquiry action
+enabled: true
+
+trigger:
+  type: core.st2.generic.inquiry
+
+action:
+  ref: slack.post_message
+  parameters:
+    channel: "bot-test1"
+    message: 'Inquiry is awaiting an approval action (id: {{ trigger.id }})'
