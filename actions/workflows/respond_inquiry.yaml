@@ -1,0 +1,13 @@
+version: 1.0
+
+input:
+  - id
+  - will_approve
+
+tasks:
+  respond_inquiry:
+    action: st2.inquiry.respond
+    input:
+      id: <% ctx(id) %>
+      response:
+        approved: <% ctx(will_approve) %>

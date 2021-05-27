@@ -1,0 +1,14 @@
+version: 1.0
+
+input:
+  - id
+
+tasks:
+  get_inquiry:
+    action: core.local
+    input:
+      cmd: |
+        st2 inquiry get <% ctx(id) %> --json | jq .schema.properties.approved.description | sed -e 's/"//g'
+
+output:
+  - stdout: <% task(get_inquiry).result.stdout %>

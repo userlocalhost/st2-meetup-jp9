@@ -1,0 +1,13 @@
+version: 1.0
+
+description: This returns ID list of inquiries
+
+tasks:
+  get_inquiry_ids:
+    action: core.local
+    input:
+      cmd: |
+        st2 inquiry list --json | jq .[].id | sed -e 's/"//g'
+
+output:
+  - stdout: <% task(get_inquiry_ids).result.stdout %>

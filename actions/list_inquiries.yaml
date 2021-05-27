@@ -1,0 +1,6 @@
+name: list_inquiries
+pack: meetup_jp
+runner_type: orquesta
+description: This returnes ID list of inquiries
+enabled: true
+entry_point: workflows/list_inquiries.yaml

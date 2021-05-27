@@ -1,0 +1,15 @@
+name: respond_inquiry
+pack: meetup_jp
+runner_type: orquesta
+description: This returnes ID list of inquiries
+enabled: true
+entry_point: workflows/respond_inquiry.yaml
+parameters:
+  id:
+    type: string
+    required: True
+    description: ID of inquiry to respond
+  will_approve:
+    type: string
+    required: True
+    description: respond message to the specifying inquiry request
