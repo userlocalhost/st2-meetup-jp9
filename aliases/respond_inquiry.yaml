@@ -1,0 +1,11 @@
+---
+name: respond_inquiry
+pack: meetup_jp
+action_ref: meetup_jp.respond_inquiry
+description: Respond specifying awaiting inquiry request with context
+ack:
+  enabled: false
+formats:
+  - "inquiry.respond {{ id }} {{ will_approve }}"
+result:
+  enabled: false

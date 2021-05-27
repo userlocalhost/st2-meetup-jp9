@@ -1,0 +1,12 @@
+---
+name: get_inquiry
+pack: meetup_jp
+action_ref: meetup_jp.get_inquiry
+description: Retrieve 'contains' attributes of AirOne entries
+ack:
+  enabled: false
+formats:
+  - "inquiry.get {{ id }}"
+result:
+  format: |
+    Waiting inquiries: ```{{ execution.result.output.stdout }}```
