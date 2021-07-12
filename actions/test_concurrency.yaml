@@ -1,0 +1,14 @@
+---
+name: test_concurrency
+pack: meetup_jp
+description: Test action for performance of concurrency
+runner_type: orquesta
+entry_point: workflows/test_concurrency.yaml
+enabled: true
+parameters:
+  concurrency:
+    required: true
+    type: integer
+  items:
+    required: true
+    type: integer

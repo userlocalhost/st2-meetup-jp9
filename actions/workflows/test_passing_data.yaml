@@ -1,0 +1,13 @@
+version: 1.0
+
+input:
+  - payload_size
+
+tasks:
+  task1:
+    action: meetup_jp.generate_test_data
+    input:
+      count: <% ctx(payload_size) %>
+
+output:
+  - result: <% task(task1).result.result.len() %>

@@ -1,0 +1,12 @@
+---
+name: test_passing_data
+pack: meetup_jp
+description: Test action for performance of passing data
+runner_type: orquesta
+entry_point: workflows/test_passing_data.yaml
+enabled: true
+parameters:
+  payload_size:
+    description: Size [KB] to create JSON data in this workflow
+    required: true
+    type: integer

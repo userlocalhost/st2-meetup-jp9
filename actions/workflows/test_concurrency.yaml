@@ -1,0 +1,12 @@
+version: 1.0
+
+input:
+  - items
+  - concurrency
+
+tasks:
+  task1:
+    with:
+      items: <% range(ctx(items)) %>
+      concurrency: <% ctx(concurrency) %>
+    action: core.echo message="<% str(item()) %>"
