@@ -8,6 +8,13 @@ tasks:
     action: meetup_jp.generate_test_data
     input:
       count: <% ctx(payload_size) %>
+    next:
+      - when: <% succeeded() %>
+        do: task2
+        publish:
+          - count: "<% result().result.len() %>"
 
-output:
-  - result: <% task(task1).result.result.len() %>
+  task2:
+    action: core.echo
+    input:
+      message: "<% str(ctx(count)) %>"

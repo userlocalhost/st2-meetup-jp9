@@ -7,6 +7,6 @@ keywords:
 dependencies:
   - core
   - slack
-version: 0.2.0
+version: 0.3.0
 author: Hiroyasu OHYAMA
 email: user.localhost2000@gmail.com
